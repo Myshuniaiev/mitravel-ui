@@ -24,6 +24,8 @@ export const Logo: React.FC<IconSvgProps> = ({
   </svg>
 );
 
+// REVIEW unused variables/components
+
 export const DiscordIcon: React.FC<IconSvgProps> = ({
   size = 24,
   width,
