@@ -1,9 +1,4 @@
-import { Link } from "@nextui-org/link";
-import { button as buttonStyles } from "@nextui-org/theme";
-
-import { siteConfig } from "@/config/site";
-import { title, subtitle } from "@/components/primitives";
-import { GithubIcon } from "@/components/icons";
+import { title } from "@/components/primitives";
 import { fetchTours } from "./services/api";
 import { ITour } from "@/types";
 import TourList from "@/components/tours/List";
@@ -20,7 +15,6 @@ export default async function Dashboard() {
         <br />
         <span className={title()}>tours all around the world.</span>
       </div>
-
       <SearchBar />
       <TourList tours={tours} />
     </section>
