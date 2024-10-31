@@ -10,7 +10,6 @@
 	},
 	"dependencies": {
 		"@nextui-org/avatar": "^2.0.33",
-		"@nextui-org/badge": "^2.0.32",
 		"@nextui-org/button": "2.0.38",
 		"@nextui-org/card": "^2.0.34",
 		"@nextui-org/code": "2.0.33",
