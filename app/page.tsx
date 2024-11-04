@@ -1,8 +1,9 @@
-import { title } from "@/components/primitives";
 import { fetchTours } from "./services/api";
 import { ITour } from "@/types";
 import TourList from "@/components/tours/List";
 import SearchBar from "@/components/tours/Search";
+import { title } from "@/components/primitives";
+import { Counter } from "@/components/counter";
 
 export default async function Dashboard() {
   const tours: ITour[] = await fetchTours();
@@ -17,6 +18,8 @@ export default async function Dashboard() {
       </div>
       <SearchBar />
       <TourList tours={tours} />
+      {/* TODO remove the example of the state management */}
+      <Counter />
     </section>
   );
 }
