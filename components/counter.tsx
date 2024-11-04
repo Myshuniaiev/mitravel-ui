@@ -2,13 +2,19 @@
 
 import { useState } from "react";
 import { Button } from "@nextui-org/button";
+import { useAppDispatch } from "@/hooks/useAppDispatch";
+import { useAppSelector } from "@/hooks/useAppSelector";
+import { increment, decrement } from "@/features/counter/counterSlice";
 
 export const Counter = () => {
-  const [count, setCount] = useState(0);
+  const dispatch = useAppDispatch();
+  const counterValue = useAppSelector((state: any) => state.counter.value);
 
   return (
-    <Button radius="full" onPress={() => setCount(count + 1)}>
-      Count is {count}
-    </Button>
+    <div>
+      <h1>Counter: {counterValue}</h1>
+      <Button onClick={() => dispatch(increment())}>Increment</Button>
+      <Button onClick={() => dispatch(decrement())}>Decrement</Button>
+    </div>
   );
 };
