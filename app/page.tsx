@@ -1,12 +1,11 @@
 import { fetchTours } from "./services/api";
-import { ITour } from "@/types";
 import TourList from "@/components/tours/List";
 import SearchBar from "@/components/tours/Search";
 import { title } from "@/components/primitives";
 import { Counter } from "@/components/counter";
 
 export default async function Dashboard() {
-  const tours: ITour[] = await fetchTours();
+  const tours = await fetchTours();
 
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
