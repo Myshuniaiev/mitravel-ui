@@ -1,44 +1,41 @@
-import { Button } from "@nextui-org/button";
+"use client";
+
 import { Input } from "@nextui-org/input";
-import { FC } from "react";
-import { Card, CardBody } from "@nextui-org/card";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
+import { FiltersIcon } from "../icons";
 
-const SearchBar: FC = () => {
+export default function Search() {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
+
+  function handleSearch(param: "name", value: string) {
+    const params = new URLSearchParams(searchParams);
+    if (value) {
+      params.set(param, value);
+    } else {
+      params.delete(param);
+    }
+    replace(`${pathname}?${params.toString()}`);
+  }
+
   return (
-    <Card>
-      <CardBody>
-        <div className="flex items-center space-x-2">
-          <Input
-            label="Where"
-            placeholder="Search destinations"
-            fullWidth
-            aria-label="Search destinations"
-          />
-          <Input
-            label="Check in"
-            placeholder="Add dates"
-            fullWidth
-            aria-label="Check in date"
-          />
-          <Input
-            label="Check out"
-            placeholder="Add dates"
-            fullWidth
-            aria-label="Check out date"
-          />
-          <Input
-            label="Who"
-            placeholder="Add guests"
-            fullWidth
-            aria-label="Number of guests"
-          />
-          <Button variant="solid" color="primary">
-            Search
-          </Button>
-        </div>
-      </CardBody>
-    </Card>
+    <Input
+      className="w-full md:w-[50%]"
+      label="Search destinations"
+      aria-label="Search destinations"
+      onChange={(e) => handleSearch("name", e.target.value)}
+      defaultValue={searchParams.get("name")?.toString()}
+      endContent={
+        <button
+          className="focus:outline-none m-auto"
+          type="button"
+          onClick={() => {}}
+          aria-label="toggle password visibility"
+        >
+          <FiltersIcon />
+        </button>
+      }
+    />
   );
-};
-
-export default SearchBar;
+}
