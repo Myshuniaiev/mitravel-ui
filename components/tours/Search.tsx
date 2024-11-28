@@ -26,16 +26,17 @@ export default function Search() {
       aria-label="Search destinations"
       onChange={(e) => handleSearch("name", e.target.value)}
       defaultValue={searchParams.get("name")?.toString()}
-      endContent={
-        <button
-          className="focus:outline-none m-auto"
-          type="button"
-          onClick={() => {}}
-          aria-label="toggle password visibility"
-        >
-          <FiltersIcon />
-        </button>
-      }
+      // TODO create a filter modal and its functionality
+      // endContent={
+      //   <button
+      //     className="focus:outline-none m-auto"
+      //     type="button"
+      //     onClick={() => {}}
+      //     aria-label="toggle password visibility"
+      //   >
+      //     <FiltersIcon />
+      //   </button>
+      // }
     />
   );
 }
