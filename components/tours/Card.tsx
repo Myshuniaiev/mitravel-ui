@@ -1,16 +1,23 @@
+"use client";
+
 import { ITour } from "@/types";
 import { Card, CardBody, CardFooter } from "@nextui-org/card";
+import { useRouter } from "next/navigation";
 
 export function TourCard(tour: ITour) {
+  const router = useRouter();
+
   return (
     <Card
       shadow="sm"
+      isPressable
+      isHoverable
+      onClick={() => router.push(`/tours/${tour.id}`)}
       className="col-span-12 sm:col-span-4 h-[400px] relative overflow-hidden rounded-lg"
     >
       <CardBody className="overflow-hidden rounded-t-lg p-0 w-full h-[280px] bg-amber-500">
         {/* TODO Replace bg-amber-500 with an image background or tour image if available */}
       </CardBody>
-
       <CardFooter className="flex flex-col items-start p-4">
         <b className="text-sm">{tour.name}</b>
         <div className="flex items-center space-x-1">
