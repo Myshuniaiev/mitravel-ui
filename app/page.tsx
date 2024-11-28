@@ -1,3 +1,4 @@
+import { Greetings } from "@/components/greetings";
 import { TourCards } from "@/components/tours/Cards";
 import SearchBar from "@/components/tours/Search";
 import { SearchParams } from "@/types";
@@ -9,6 +10,7 @@ export default async function Dashboard(props: {
 
   return (
     <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
+      <Greetings />
       <SearchBar />
       <TourCards params={searchParams} />
     </section>
