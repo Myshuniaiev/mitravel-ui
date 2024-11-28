@@ -1,11 +1,7 @@
-import { ITour } from "../../types";
+import { ITour } from "@/types";
 import { Card, CardBody, CardFooter } from "@nextui-org/card";
 
-interface IProps {
-  tours: ITour[];
-}
-
-function TourItem(tour: ITour) {
+export function TourCard(tour: ITour) {
   return (
     <Card
       shadow="sm"
@@ -27,7 +23,7 @@ function TourItem(tour: ITour) {
         <p className="text-xs text-gray-500 mt-1">{tour.duration} days</p>
         <div className="flex items-center justify-between w-full mt-2">
           <p
-            className={`text-sm font-semibold ${tour.priceDiscount ? "line-through" : ""} text-gray-400`}
+            className={`text-sm font-semibold ${tour.priceDiscount ? "line-through text-gray-400" : ""}`}
           >
             ${tour.price} CAD
           </p>
@@ -39,16 +35,5 @@ function TourItem(tour: ITour) {
         </div>
       </CardFooter>
     </Card>
-  );
-}
-
-export default function TourList({ tours }: IProps) {
-  console.log("%c%s", "color: #733d00", "tours: ", tours);
-  return (
-    <div className="w-full gap-4 grid grid-cols-12 px-8">
-      {tours.map((tour, index) => (
-        <TourItem {...tour} key={tour.id} />
-      ))}
-    </div>
   );
 }
