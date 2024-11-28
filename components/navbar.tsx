@@ -17,7 +17,6 @@ import { Link } from "@nextui-org/link";
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { GithubIcon, Logo } from "@/components/icons";
-import { Button } from "@nextui-org/button";
 
 export const Navbar = () => {
   return (

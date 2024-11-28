@@ -2,7 +2,6 @@
 
 import { Input } from "@nextui-org/input";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
-import { FiltersIcon } from "../icons";
 
 export default function Search() {
   const searchParams = useSearchParams();

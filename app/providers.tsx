@@ -5,7 +5,6 @@ import { NextUIProvider } from "@nextui-org/system";
 import { useRouter } from "next/navigation";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { ThemeProviderProps } from "next-themes/dist/types";
-import { Provider } from "react-redux";
 
 export interface ProvidersProps {
   children: React.ReactNode;
