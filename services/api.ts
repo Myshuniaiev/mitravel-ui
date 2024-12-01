@@ -1,5 +1,12 @@
 import { ITour } from "@/types";
 
+export interface IFetchResponse<T> {
+  data: { data: T };
+  totalCount: number;
+  results: number;
+  status: string;
+}
+
 export interface IOptions {
   method?: "GET" | "POST" | "PUT" | "DELETE";
   headers?: Record<string, string>;
@@ -11,7 +18,9 @@ const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN;
 const apiVersion = process.env.NEXT_PUBLIC_API_VERSION;
 const apiUrl = `${apiDomain}/api/${apiVersion}`;
 
-export async function fetchTours(options: IOptions = {}): Promise<ITour[]> {
+export async function fetchTours(
+  options: IOptions = {}
+): Promise<IFetchResponse<ITour[]>> {
   const { method = "GET", params } = options;
 
   try {
@@ -33,7 +42,7 @@ export async function fetchTours(options: IOptions = {}): Promise<ITour[]> {
 
     const responseData = await res.json();
 
-    return responseData.data?.data || [];
+    return responseData || [];
   } catch (error) {
     console.error("Fetch Error:", error);
     throw new Error("An error occurred while fetching tours");
