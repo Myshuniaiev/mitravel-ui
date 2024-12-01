@@ -10,7 +10,7 @@ interface IProps {
 export async function TourCards({ params }: IProps) {
   let localParams: Record<string, string> = {
     page: "1",
-    limit: "3",
+    limit: "6",
   };
 
   if (params?.name) {
@@ -29,10 +29,12 @@ export async function TourCards({ params }: IProps) {
           <TourCard {...tour} key={tour.id} />
         ))}
       </div>
-      <Pagination
-        total={totalCount / Number(localParams.limit)}
-        initialPage={params?.page}
-      />
+      {totalCount <= Number(localParams.limit) ? null : (
+        <Pagination
+          total={Math.ceil(totalCount / Number(localParams.limit))}
+          initialPage={params?.page}
+        />
+      )}
     </div>
   );
 }
