@@ -6,7 +6,7 @@ export type IconSvgProps = SVGProps<SVGSVGElement> & {
 
 export interface SearchParams {
   name?: string | undefined;
-  page?: string | undefined;
+  page?: number | undefined;
 }
 
 export enum TourDifficultyEnum {
