@@ -11,6 +11,8 @@ export async function TourCards({ params }: IProps) {
   let localParams: Record<string, string> = {
     page: "1",
     limit: "6",
+    fields:
+      "name,ratingsAverage,ratingQuantity,startLocation,priceDiscount,price",
   };
 
   if (params?.name) {
