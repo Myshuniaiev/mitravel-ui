@@ -11,6 +11,8 @@ export async function TourCards({ params }: IProps) {
   let localParams: Record<string, string> = {
     page: "1",
     limit: "6",
+    fields:
+      "name,ratingsAverage,ratingQuantity,startLocation,priceDiscount,price",
   };
 
   if (params?.name) {
@@ -20,7 +22,9 @@ export async function TourCards({ params }: IProps) {
     localParams.page = params.page.toString();
   }
 
-  const { data, totalCount } = await fetchTours({ params: localParams });
+  const { data, totalCount, results } = await fetchTours({
+    params: localParams,
+  });
 
   return (
     <div className="w-full flex flex-col gap-4 items-center">
@@ -29,7 +33,7 @@ export async function TourCards({ params }: IProps) {
           <TourCard {...tour} key={tour.id} />
         ))}
       </div>
-      {totalCount <= Number(localParams.limit) ? null : (
+      {results < Number(localParams.limit) && params?.page == 1 ? null : (
         <Pagination
           total={Math.ceil(totalCount / Number(localParams.limit))}
           initialPage={params?.page}
