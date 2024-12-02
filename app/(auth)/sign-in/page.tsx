@@ -1,19 +1,27 @@
 "use client";
 
-import React from "react";
+import React, { useContext } from "react";
 import { Logo } from "@/components/icons";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { Link } from "@nextui-org/link";
 import { Checkbox } from "@nextui-org/checkbox";
+import { AuthContext } from "@/context/AuthContext";
 
 export default function Component() {
+  const { login } = useContext(AuthContext);
+
   const [isVisible, setIsVisible] = React.useState(false);
-  const [name, setName] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [name, setName] = React.useState("Oleksii Myshuniaiev");
+  const [email, setEmail] = React.useState("oleksii@myshuniaiev.io");
+  const [password, setPassword] = React.useState("pass1234");
 
   const toggleVisibility = () => setIsVisible(!isVisible);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await login(name, email, password);
+  };
 
   return (
     <div className="flex h-full w-full items-center justify-center">
@@ -25,10 +33,7 @@ export default function Component() {
             Log in to your account to continue
           </p>
         </div>
-        <form
-          className="flex flex-col gap-3"
-          onSubmit={(e) => e.preventDefault()}
-        >
+        <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
           <div className="flex flex-col">
             <Input
               classNames={{

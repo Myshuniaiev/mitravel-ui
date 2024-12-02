@@ -53,15 +53,9 @@ export enum UserRoleEnum {
   ADMIN = "admin",
 }
 
-export interface IUser extends Document {
+export interface IUser {
   name: string;
   email: string;
   photo: string;
   role: UserRoleEnum;
-  password: string;
-  passwordConfirm: string | undefined;
-  passwordChangedAt: Date;
-  passwordResetToken?: string;
-  passwordResetExpires?: Date;
-  active: boolean;
 }
