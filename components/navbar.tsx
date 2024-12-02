@@ -26,10 +26,6 @@ export const Navbar = () => {
   const router = useRouter();
   const { user, isAuthenticated, logout } = useContext(AuthContext);
 
-  useEffect(() => {
-    console.log("user: ", user);
-  }, [user]);
-
   return (
     <NextUINavbar maxWidth="xl" position="sticky" isBordered>
       <NavbarBrand onClick={() => router.push("/")} className="cursor-pointer">

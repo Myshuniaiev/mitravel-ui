@@ -3,8 +3,8 @@ export interface IFetchResponse<T> {
   totalCount?: number;
   results?: number;
   status?: string;
-  token?: string
-  message?: string
+  token?: string;
+  message?: string;
 }
 
 export interface IRequest extends RequestInit {
@@ -21,8 +21,6 @@ export async function request<T>(init: IRequest): Promise<IFetchResponse<T>> {
 
   try {
     const newUrl = new URL(`${apiUrl}/${url}`);
-
-    console.log("Login attempt with:", _init.body); // Log the input values
 
     if (params) {
       Object.keys(params).forEach((key) =>
