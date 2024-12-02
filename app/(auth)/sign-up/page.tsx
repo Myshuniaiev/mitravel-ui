@@ -1,22 +1,30 @@
 "use client";
 
-import React from "react";
+import React, { useContext } from "react";
 import { Logo } from "@/components/icons";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { Link } from "@nextui-org/link";
 import { Checkbox } from "@nextui-org/checkbox";
+import { AuthContext } from "@/context/AuthContext";
 
 export default function SignUp() {
+  const { signup } = useContext(AuthContext);
+
   const [isVisible, setIsVisible] = React.useState(false);
   const [isConfirmVisible, setIsConfirmVisible] = React.useState(false);
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [confirmPassword, setConfirmPassword] = React.useState("");
+  const [passwordConfirm, setPasswordConfirm] = React.useState("");
 
   const toggleVisibility = () => setIsVisible(!isVisible);
   const toggleConfirmVisibility = () => setIsConfirmVisible(!isConfirmVisible);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await signup(name, email, password, passwordConfirm);
+  };
 
   return (
     <div className="flex h-full w-full items-center justify-center">
@@ -28,10 +36,7 @@ export default function SignUp() {
             Create an account to get started
           </p>
         </div>
-        <form
-          className="flex flex-col gap-3"
-          onSubmit={(e) => e.preventDefault()}
-        >
+        <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
           <div className="flex flex-col">
             <Input
               isRequired
@@ -176,8 +181,8 @@ export default function SignUp() {
               placeholder="Confirm your password"
               type={isConfirmVisible ? "text" : "password"}
               variant="bordered"
-              value={confirmPassword}
-              onValueChange={setConfirmPassword}
+              value={passwordConfirm}
+              onValueChange={setPasswordConfirm}
             />
           </div>
           <Checkbox isRequired className="py-4" size="sm">

@@ -10,6 +10,12 @@ interface AuthContextType {
   user: IUser | undefined;
   isAuthenticated: boolean;
   login: (name: string, email: string, password: string) => Promise<void>;
+  signup: (
+    name: string,
+    email: string,
+    password: string,
+    passwordConfirm: string
+  ) => Promise<void>;
   logout: () => void;
 }
 
@@ -17,6 +23,7 @@ export const AuthContext = createContext<AuthContextType>({
   user: undefined,
   isAuthenticated: false,
   login: async () => {},
+  signup: async () => {},
   logout: () => {},
 });
 
@@ -71,6 +78,33 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const signup = async (
+    name: string,
+    email: string,
+    password: string,
+    passwordConfirm: string
+  ) => {
+    const res = await request<IUser>({
+      url: "users/signup",
+      method: "POST",
+      body: JSON.stringify({ name, email, password, passwordConfirm }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (res.status === "success" && res.token) {
+      setCookie(null, "token", res.token, {
+        maxAge: 30 * 24 * 60 * 60,
+        path: "/",
+      });
+      setUser(res.data?.data);
+      router.push("/");
+    } else {
+      alert(res.message || "Login failed");
+    }
+  };
+
   const logout = () => {
     destroyCookie(null, "token", { path: "/" });
     setUser(undefined);
@@ -80,7 +114,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const isAuthenticated = !!user;
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, login, logout }}>
+    <AuthContext.Provider
+      value={{ user, isAuthenticated, login, signup, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );
