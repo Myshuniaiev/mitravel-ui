@@ -1,5 +1,5 @@
-import { fetchTours } from "@/services/api";
-import { SearchParams } from "@/types";
+import { request } from "@/services/api";
+import { ITour, SearchParams } from "@/types";
 import { TourCard } from "./Card";
 import { Pagination } from "../pagination";
 
@@ -22,16 +22,19 @@ export async function TourCards({ params }: IProps) {
     localParams.page = params.page.toString();
   }
 
-  const { data, totalCount, results } = await fetchTours({
+  const {
+    data: res,
+    totalCount = 0,
+    results = 0,
+  } = await request<ITour[]>({
+    url: "tours",
     params: localParams,
   });
 
   return (
     <div className="w-full flex flex-col gap-4 items-center">
       <div className="w-full gap-4 grid grid-cols-12 md:px-8">
-        {data.data.map((tour) => (
-          <TourCard {...tour} key={tour.id} />
-        ))}
+        {res?.data.map((tour) => <TourCard {...tour} key={tour.id} />)}
       </div>
       {results < Number(localParams.limit) && params?.page == 1 ? null : (
         <Pagination

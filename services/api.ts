@@ -1,13 +1,14 @@
 import { ITour } from "@/types";
 
 export interface IFetchResponse<T> {
-  data: { data: T };
-  totalCount: number;
-  results: number;
-  status: string;
+  data?: { data: T };
+  totalCount?: number;
+  results?: number;
+  status?: string;
 }
 
 export interface IOptions {
+  url: string;
   method?: "GET" | "POST" | "PUT" | "DELETE";
   headers?: Record<string, string>;
   body?: Record<string, any>;
@@ -18,13 +19,13 @@ const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN;
 const apiVersion = process.env.NEXT_PUBLIC_API_VERSION;
 const apiUrl = `${apiDomain}/api/${apiVersion}`;
 
-export async function fetchTours(
-  options: IOptions = {}
-): Promise<IFetchResponse<ITour[]>> {
-  const { method = "GET", params } = options;
+export async function request<T>(
+  options: IOptions
+): Promise<IFetchResponse<T>> {
+  const { url: optionsUrl, method = "GET", headers, body, params } = options;
 
   try {
-    const url = new URL(`${apiUrl}/tours`);
+    const url = new URL(`${apiUrl}/${optionsUrl}`);
 
     if (params) {
       Object.keys(params).forEach((key) =>
@@ -32,7 +33,7 @@ export async function fetchTours(
       );
     }
 
-    const res = await fetch(url.toString(), { method });
+    const res = await fetch(url.toString(), { method, headers });
 
     if (!res.ok) {
       const errorData = await res.json();
@@ -42,7 +43,7 @@ export async function fetchTours(
 
     const responseData = await res.json();
 
-    return responseData || [];
+    return responseData;
   } catch (error) {
     console.error("Fetch Error:", error);
     throw new Error("An error occurred while fetching tours");
