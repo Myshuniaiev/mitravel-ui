@@ -64,9 +64,6 @@ export const Navbar = () => {
             <DropdownItem key="profile" href="/profile">
               Profile
             </DropdownItem>
-            <DropdownItem key="settings" href="/settings">
-              Settings
-            </DropdownItem>
             <DropdownItem key="logout" color="danger">
               Log Out
             </DropdownItem>
