@@ -1,7 +1,5 @@
-import { ITour } from "@/types";
-
 export interface IFetchResponse<T> {
-  data?: { data: T };
+  data: { data: T };
   totalCount?: number;
   results?: number;
   status?: string;
@@ -27,13 +25,7 @@ export async function request<T>(
   try {
     const url = new URL(`${apiUrl}/${optionsUrl}`);
 
-    if (params) {
-      Object.keys(params).forEach((key) =>
-        url.searchParams.append(key, params[key])
-      );
-    }
-
-    const res = await fetch(url.toString(), { method, headers });
+    const res = await fetch(url.toString(), { method });
 
     if (!res.ok) {
       const errorData = await res.json();
