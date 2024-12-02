@@ -1,4 +1,4 @@
-import { SVGProps } from "react";
+import { JSXElementConstructor, ReactNode, SVGProps } from "react";
 
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;
@@ -6,7 +6,7 @@ export type IconSvgProps = SVGProps<SVGSVGElement> & {
 
 export interface SearchParams {
   name?: string | undefined;
-  page?: string | undefined;
+  page?: number | undefined;
 }
 
 export enum TourDifficultyEnum {

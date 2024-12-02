@@ -1,25 +1,47 @@
-import { IOptions, fetchTours } from "@/services/api";
-import { SearchParams } from "@/types";
+import { request } from "@/services/api";
+import { ITour, SearchParams } from "@/types";
 import { TourCard } from "./Card";
+import { Pagination } from "../pagination";
 
 interface IProps {
   params: SearchParams | undefined;
 }
 
 export async function TourCards({ params }: IProps) {
-  let options: IOptions = { params: {} };
+  let localParams: Record<string, string> = {
+    page: "1",
+    limit: "6",
+    fields:
+      "name,ratingsAverage,ratingQuantity,startLocation,priceDiscount,price",
+  };
 
   if (params?.name) {
-    (options.params as Record<string, string>).name = params.name;
+    localParams.name = params.name;
+  }
+  if (params?.page) {
+    localParams.page = params.page.toString();
   }
 
-  const tours = await fetchTours(options);
+  const {
+    data: res,
+    totalCount = 0,
+    results = 0,
+  } = await request<ITour[]>({
+    url: "tours",
+    params: localParams,
+  });
 
   return (
-    <div className="w-full gap-4 grid grid-cols-12 md:px-8">
-      {tours.map((tour) => (
-        <TourCard {...tour} key={tour.id} />
-      ))}
+    <div className="w-full flex flex-col gap-4 items-center">
+      <div className="w-full gap-4 grid grid-cols-12 md:px-8">
+        {res?.data.map((tour) => <TourCard {...tour} key={tour.id} />)}
+      </div>
+      {results < Number(localParams.limit) && params?.page == 1 ? null : (
+        <Pagination
+          total={Math.ceil(totalCount / Number(localParams.limit))}
+          initialPage={params?.page}
+        />
+      )}
     </div>
   );
 }
