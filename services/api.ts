@@ -3,13 +3,12 @@ export interface IFetchResponse<T> {
   totalCount?: number;
   results?: number;
   status?: string;
+  token?: string;
+  message?: string;
 }
 
-export interface IOptions {
+export interface IRequest extends RequestInit {
   url: string;
-  method?: "GET" | "POST" | "PUT" | "DELETE";
-  headers?: Record<string, string>;
-  body?: Record<string, any>;
   params?: Record<string, string>;
 }
 
@@ -17,20 +16,24 @@ const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN;
 const apiVersion = process.env.NEXT_PUBLIC_API_VERSION;
 const apiUrl = `${apiDomain}/api/${apiVersion}`;
 
-export async function request<T>(
-  options: IOptions
-): Promise<IFetchResponse<T>> {
-  const { url: optionsUrl, method = "GET", headers, body, params } = options;
+export async function request<T>(init: IRequest): Promise<IFetchResponse<T>> {
+  const { url, params, ..._init } = init;
 
   try {
-    const url = new URL(`${apiUrl}/${optionsUrl}`);
+    const newUrl = new URL(`${apiUrl}/${url}`);
 
-    const res = await fetch(url.toString(), { method });
+    if (params) {
+      Object.keys(params).forEach((key) =>
+        newUrl.searchParams.append(key, params[key])
+      );
+    }
+
+    const res = await fetch(newUrl.toString(), _init);
 
     if (!res.ok) {
       const errorData = await res.json();
 
-      throw new Error(errorData.message || "Failed to fetch tours");
+      alert(errorData.message || "Failed");
     }
 
     const responseData = await res.json();
@@ -38,6 +41,6 @@ export async function request<T>(
     return responseData;
   } catch (error) {
     console.error("Fetch Error:", error);
-    throw new Error("An error occurred while fetching tours");
+    throw new Error("An error occurred");
   }
 }
