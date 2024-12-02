@@ -9,6 +9,9 @@ import { Checkbox } from "@nextui-org/checkbox";
 
 export default function Component() {
   const [isVisible, setIsVisible] = React.useState(false);
+  const [name, setName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
@@ -33,11 +36,27 @@ export default function Component() {
                 inputWrapper:
                   "rounded-b-none data-[hover=true]:z-10 group-data-[focus-visible=true]:z-10",
               }}
+              label="Name"
+              name="name"
+              placeholder="Enter your name"
+              type="text"
+              variant="bordered"
+              value={name}
+              onValueChange={setName}
+            />
+            <Input
+              classNames={{
+                base: "-mb-[2px]",
+                inputWrapper:
+                  "rounded-none data-[hover=true]:z-10 group-data-[focus-visible=true]:z-10",
+              }}
               label="Email Address"
               name="email"
               placeholder="Enter your email"
               type="email"
               variant="bordered"
+              value={email}
+              onValueChange={setEmail}
             />
             <Input
               classNames={{
@@ -92,6 +111,8 @@ export default function Component() {
               placeholder="Enter your password"
               type={isVisible ? "text" : "password"}
               variant="bordered"
+              value={password}
+              onValueChange={setPassword}
             />
           </div>
           <div className="flex items-center justify-between px-1 py-2">

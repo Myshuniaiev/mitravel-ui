@@ -11,6 +11,10 @@ import { Checkbox } from "@nextui-org/checkbox";
 export default function Component() {
   const [isVisible, setIsVisible] = React.useState(false);
   const [isConfirmVisible, setIsConfirmVisible] = React.useState(false);
+  const [name, setName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [confirmPassword, setConfirmPassword] = React.useState("");
 
   const toggleVisibility = () => setIsVisible(!isVisible);
   const toggleConfirmVisibility = () => setIsConfirmVisible(!isConfirmVisible);
@@ -37,11 +41,13 @@ export default function Component() {
                 inputWrapper:
                   "rounded-b-none data-[hover=true]:z-10 group-data-[focus-visible=true]:z-10",
               }}
-              label="Username"
-              name="username"
-              placeholder="Enter your username"
+              label="Name"
+              name="name"
+              placeholder="Enter your name"
               type="text"
               variant="bordered"
+              value={name}
+              onValueChange={setName}
             />
             <Input
               isRequired
@@ -55,6 +61,8 @@ export default function Component() {
               placeholder="Enter your email"
               type="email"
               variant="bordered"
+              value={email}
+              onValueChange={setEmail}
             />
             <Input
               isRequired
@@ -112,6 +120,8 @@ export default function Component() {
               placeholder="Enter your password"
               type={isVisible ? "text" : "password"}
               variant="bordered"
+              value={password}
+              onValueChange={setPassword}
             />
             <Input
               isRequired
@@ -167,6 +177,8 @@ export default function Component() {
               placeholder="Confirm your password"
               type={isConfirmVisible ? "text" : "password"}
               variant="bordered"
+              value={confirmPassword}
+              onValueChange={setConfirmPassword}
             />
           </div>
           <Checkbox isRequired className="py-4" size="sm">
@@ -185,7 +197,7 @@ export default function Component() {
         </form>
         <p className="text-center text-small">
           Already have an account?&nbsp;
-          <Link href="#" size="sm">
+          <Link href="/sign-in" size="sm">
             Log In
           </Link>
         </p>
