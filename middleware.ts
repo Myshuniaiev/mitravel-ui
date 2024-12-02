@@ -9,16 +9,16 @@ export function middleware(request: NextRequest) {
   // Define routes that require authentication
   const protectedRoutes = ["/profile", "/settings"];
 
-  // Redirect to sign-in if accessing a protected route without a token
+  // Redirect to login if accessing a protected route without a token
   if (protectedRoutes.some((route) => pathname.startsWith(route))) {
     if (!token) {
-      url.pathname = "/sign-in";
+      url.pathname = "/login";
       return NextResponse.redirect(url);
     }
   }
 
-  // Prevent authenticated users from accessing the sign-in page
-  if (pathname === "/sign-in" && token) {
+  // Prevent authenticated users from accessing the login page
+  if (pathname === "/login" && token) {
     url.pathname = "/";
     return NextResponse.redirect(url);
   }
@@ -27,5 +27,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/profile/:path*", "/settings/:path*", "/sign-in"],
+  matcher: ["/profile/:path*", "/settings/:path*", "/login"],
 };

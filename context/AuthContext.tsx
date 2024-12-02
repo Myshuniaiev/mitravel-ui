@@ -74,7 +74,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logout = () => {
     destroyCookie(null, "token", { path: "/" });
     setUser(undefined);
-    router.push("/sign-in");
+    router.push("/login");
   };
 
   const isAuthenticated = !!user;

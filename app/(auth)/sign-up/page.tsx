@@ -3,12 +3,11 @@
 import React from "react";
 import { Logo } from "@/components/icons";
 import { Button } from "@nextui-org/button";
-import { Divider } from "@nextui-org/divider";
 import { Input } from "@nextui-org/input";
 import { Link } from "@nextui-org/link";
 import { Checkbox } from "@nextui-org/checkbox";
 
-export default function Component() {
+export default function SignUp() {
   const [isVisible, setIsVisible] = React.useState(false);
   const [isConfirmVisible, setIsConfirmVisible] = React.useState(false);
   const [name, setName] = React.useState("");
@@ -197,7 +196,7 @@ export default function Component() {
         </form>
         <p className="text-center text-small">
           Already have an account?&nbsp;
-          <Link href="/sign-in" size="sm">
+          <Link href="/login" size="sm">
             Log In
           </Link>
         </p>

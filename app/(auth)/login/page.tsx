@@ -8,7 +8,7 @@ import { Link } from "@nextui-org/link";
 import { Checkbox } from "@nextui-org/checkbox";
 import { AuthContext } from "@/context/AuthContext";
 
-export default function Component() {
+export default function Login() {
   const { login } = useContext(AuthContext);
 
   const [isVisible, setIsVisible] = React.useState(false);
