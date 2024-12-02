@@ -36,10 +36,11 @@ export async function TourCards({ params }: IProps) {
       <div className="w-full gap-4 grid grid-cols-12 md:px-8">
         {res?.data.map((tour) => <TourCard {...tour} key={tour.id} />)}
       </div>
-      {results < Number(localParams.limit) && params?.page == 1 ? null : (
+      {results < Number(localParams.limit) &&
+      Number(localParams?.page) == 1 ? null : (
         <Pagination
           total={Math.ceil(totalCount / Number(localParams.limit))}
-          initialPage={params?.page}
+          initialPage={Number(localParams?.page)}
         />
       )}
     </div>
