@@ -1,4 +1,4 @@
-import { SVGProps } from "react";
+import { JSXElementConstructor, ReactNode, SVGProps } from "react";
 
 export type IconSvgProps = SVGProps<SVGSVGElement> & {
   size?: number;

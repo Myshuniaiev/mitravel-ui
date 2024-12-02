@@ -1,5 +1,5 @@
 export interface IFetchResponse<T> {
-  data?: { data: T };
+  data: { data: T };
   totalCount?: number;
   results?: number;
   status?: string;
