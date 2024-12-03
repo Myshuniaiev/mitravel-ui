@@ -1,4 +1,3 @@
-"use client";
 
 import { Autocomplete, AutocompleteItem } from "@nextui-org/autocomplete";
 

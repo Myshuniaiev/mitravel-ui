@@ -29,6 +29,7 @@ export const AuthContext = createContext<AuthContextType>({
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<IUser | undefined>(undefined);
+  const [loading, setLoading] = useState<boolean>(true);
   const router = useRouter();
 
   useEffect(() => {
@@ -37,6 +38,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (token && !user) {
       getMe(token);
     }
+
+    setLoading(false);
   }, [user]);
 
   const getMe = async (token: string) => {
@@ -57,6 +60,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const login = async (name: string, email: string, password: string) => {
+    setLoading(true);
+
     const res = await request<IUser>({
       url: "users/login",
       method: "POST",
@@ -76,6 +81,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     } else {
       alert(res.message || "Login failed");
     }
+
+    setLoading(false);
   };
 
   const signup = async (
