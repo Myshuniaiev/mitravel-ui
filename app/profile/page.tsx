@@ -11,16 +11,21 @@ import { Button, ButtonGroup } from "@nextui-org/button";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Image } from "@nextui-org/image";
 
-export default async function ProfilePage() {
-  const { user } = useContext(AuthContext);
+export default function ProfilePage() {
+  const { user, updateMe } = useContext(AuthContext);
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
 
-  const [name, setName] = React.useState(user?.name);
-  const [email, setEmail] = React.useState(user?.email);
+  const [name, setName] = React.useState(user?.name || "");
+  const [email, setEmail] = React.useState(user?.email || "");
 
-  function handleSearch(value: string | number) {
+  React.useEffect(() => {
+    setName(user?.name || "");
+    setEmail(user?.email || "");
+  }, [user?.name, user?.email]);
+
+  function handleChangeTab(value: string | number) {
     const params = new URLSearchParams(searchParams);
     if (value) {
       params.set("tab", value.toString());
@@ -29,6 +34,11 @@ export default async function ProfilePage() {
     }
     replace(`${pathname}?${params.toString()}`);
   }
+
+  const handleSaveProfile = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await updateMe(name, email);
+  };
 
   function TourBooking() {
     return (
@@ -83,10 +93,10 @@ export default async function ProfilePage() {
         aria-label="Options"
         isVertical
         selectedKey={searchParams.get("tab")?.toString() || "profile"}
-        onSelectionChange={handleSearch}
+        onSelectionChange={handleChangeTab}
       >
         <Tab key="profile" title="Public Profile" className="w-full px-6">
-          <div className="flex flex-col gap-4 ">
+          <form className="flex flex-col gap-4" onSubmit={handleSaveProfile}>
             <h4 className="text-2xl">Public profile</h4>
             <Divider />
             <div className="grid grid-cols-3 gap-4">
@@ -117,7 +127,7 @@ export default async function ProfilePage() {
                 <span className="text-sm font-bold">Profile picture</span>
                 <Avatar
                   name={user?.name}
-                  className="relative w-[200px] h-[200px] "
+                  className="relative w-[200px] h-[200px] text-lg"
                 />
                 <ButtonGroup size="sm" className="mr-auto">
                   <Button>Upload</Button>
@@ -125,10 +135,15 @@ export default async function ProfilePage() {
                 </ButtonGroup>
               </div>
             </div>
-            <Button variant="solid" color="primary" className="w-1/5">
+            <Button
+              variant="solid"
+              color="primary"
+              type="submit"
+              className="w-1/5"
+            >
               Update Profile
             </Button>
-          </div>
+          </form>
         </Tab>
         <Tab key="tours" title="Booked Tours" className="w-full px-6">
           <div className="flex flex-col gap-4 ">
@@ -215,7 +230,7 @@ export default async function ProfilePage() {
           <h4 className="text-2xl mb-4">Billing Details</h4>
           <Divider />
           <div className="mt-4">
-          <h3 className="font-semibold mb-4">Personal Details</h3>
+            <h3 className="font-semibold mb-4">Personal Details</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
               <Input
                 labelPlacement="outside"
@@ -226,7 +241,7 @@ export default async function ProfilePage() {
                 value={name}
                 onValueChange={setName}
               />
-               <Input
+              <Input
                 labelPlacement="outside"
                 placeholder="Enter your email address"
                 type="text"
@@ -249,7 +264,7 @@ export default async function ProfilePage() {
                 label="City"
                 className="w-full"
               />
-               <Input
+              <Input
                 labelPlacement="outside"
                 placeholder="Enter your country"
                 type="text"

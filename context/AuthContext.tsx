@@ -9,6 +9,7 @@ import { IUser } from "@/types";
 interface AuthContextType {
   user: IUser | undefined;
   isAuthenticated: boolean;
+  updateMe: (name: string, email: string) => Promise<void>;
   login: (name: string, email: string, password: string) => Promise<void>;
   signup: (
     name: string,
@@ -22,6 +23,7 @@ interface AuthContextType {
 export const AuthContext = createContext<AuthContextType>({
   user: undefined,
   isAuthenticated: false,
+  updateMe: async () => {},
   login: async () => {},
   signup: async () => {},
   logout: () => {},
@@ -57,6 +59,24 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     } else {
       alert(res.message || "Login failed");
     }
+  };
+
+  const updateMe = async (name: string, email: string) => {
+    setLoading(true);
+
+    const { token } = parseCookies();
+
+    const res = await request<IUser>({
+      url: "users/updateMe",
+      method: "PATCH",
+      body: JSON.stringify({ name, email }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    setLoading(false);
   };
 
   const login = async (name: string, email: string, password: string) => {
@@ -122,7 +142,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, isAuthenticated, login, signup, logout }}
+      value={{ user, isAuthenticated, updateMe, login, signup, logout }}
     >
       {children}
     </AuthContext.Provider>

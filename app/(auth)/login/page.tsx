@@ -13,7 +13,7 @@ export default function Login() {
 
   const [isVisible, setIsVisible] = React.useState(false);
   const [name, setName] = React.useState("Oleksii Myshuniaiev");
-  const [email, setEmail] = React.useState("oleksii@myshuniaiev.io");
+  const [email, setEmail] = React.useState("oleksii@mitravel.io");
   const [password, setPassword] = React.useState("pass1234");
 
   const toggleVisibility = () => setIsVisible(!isVisible);
