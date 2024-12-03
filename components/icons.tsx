@@ -295,7 +295,7 @@ export const FlagIcon = ({
 );
 
 export const MapPinIcon = ({
-  size = 34,
+  size = 24,
   width,
   height,
   ...props

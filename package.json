@@ -13,6 +13,7 @@
 		"@nextui-org/avatar": "^2.0.33",
 		"@nextui-org/button": "2.0.38",
 		"@nextui-org/card": "^2.0.34",
+		"@nextui-org/checkbox": "^2.1.5",
 		"@nextui-org/code": "2.0.33",
 		"@nextui-org/divider": "^2.0.32",
 		"@nextui-org/dropdown": "^2.1.31",
@@ -23,6 +24,7 @@
 		"@nextui-org/listbox": "2.1.27",
 		"@nextui-org/navbar": "2.0.37",
 		"@nextui-org/pagination": "^2.0.36",
+		"@nextui-org/skeleton": "^2.0.32",
 		"@nextui-org/snippet": "2.0.43",
 		"@nextui-org/switch": "2.0.34",
 		"@nextui-org/system": "2.2.6",
@@ -35,6 +37,7 @@
 		"intl-messageformat": "^10.5.0",
 		"next": "14.2.4",
 		"next-themes": "^0.2.1",
+		"nookies": "^2.5.2",
 		"react": "18.3.1",
 		"react-dom": "18.3.1"
 	},
