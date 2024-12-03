@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 
 interface ListItemProps {
-  icon: ReactNode;
+  icon?: ReactNode;
   title: string;
   description: string | number;
 }

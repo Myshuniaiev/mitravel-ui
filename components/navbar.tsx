@@ -17,7 +17,7 @@ import { Link } from "@nextui-org/link";
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { GithubIcon, Logo } from "@/components/icons";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { AuthContext } from "@/context/AuthContext";
 import { Button } from "@nextui-org/button";
 import { useRouter } from "next/navigation";
@@ -69,11 +69,11 @@ export const Navbar = () => {
                 Profile
               </DropdownItem>
               <DropdownItem
-                key="settings"
-                href="/settings"
-                textValue="settings"
+                key="booked-tours"
+                href="/profile?tab=tours"
+                textValue="Booked Tours"
               >
-                Settings
+                Booked Tours
               </DropdownItem>
               <DropdownItem
                 onClick={logout}

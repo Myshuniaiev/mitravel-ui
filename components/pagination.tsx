@@ -13,7 +13,7 @@ export const Pagination = ({ total, initialPage }: IProps) => {
   const pathname = usePathname();
   const { replace } = useRouter();
 
-  function handleSearch(value: number) {
+  function handleChangePage(value: number) {
     const params = new URLSearchParams(searchParams);
 
     if (value) {
@@ -26,9 +26,9 @@ export const Pagination = ({ total, initialPage }: IProps) => {
 
   return (
     <NextUiPagination
-      initialPage={(initialPage || 1) * 1}
+      initialPage={initialPage || 1}
       total={total}
-      onChange={handleSearch}
+      onChange={handleChangePage}
     />
   );
 };
