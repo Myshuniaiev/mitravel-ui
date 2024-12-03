@@ -17,7 +17,7 @@ import { Link } from "@nextui-org/link";
 import { siteConfig } from "@/config/site";
 import { ThemeSwitch } from "@/components/theme-switch";
 import { GithubIcon, Logo } from "@/components/icons";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { AuthContext } from "@/context/AuthContext";
 import { Button } from "@nextui-org/button";
 import { useRouter } from "next/navigation";
