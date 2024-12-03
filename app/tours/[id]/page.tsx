@@ -3,10 +3,10 @@ import { Image } from "@nextui-org/image";
 import { Divider } from "@nextui-org/divider";
 import { FlagIcon, MapPinIcon, UsersGroup } from "@/components/icons";
 import { ListItem } from "@/components/list";
-import { Button } from "@nextui-org/button";
 import { Card } from "@nextui-org/card";
 import { request } from "@/services/api";
 import AutocompleteComponent from "@/components/autocomplete";
+import BookButton from "@/components/BookButton";
 
 interface IProps {
   params: { id: string };
@@ -66,11 +66,9 @@ export default async function Tour({ params }: IProps) {
             ${res.data.price}
             <span className="font-normal text-sm ml-2">total</span>
           </div>
-        <AutocompleteComponent startDates={res.data.startDates} />
+          <AutocompleteComponent startDates={res.data.startDates} />
           <div className="flex justify-end">
-            <Button variant="solid" color="primary" className="w-1/2 mt-4">
-              Book Now
-            </Button>
+            <BookButton title={"Book Now"} link={"/book"} />
           </div>
         </Card>
       </div>
