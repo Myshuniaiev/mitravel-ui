@@ -69,11 +69,11 @@ export const Navbar = () => {
                 Profile
               </DropdownItem>
               <DropdownItem
-                key="settings"
-                href="/settings"
-                textValue="settings"
+                key="booked-tours"
+                href="/profile?tab=tours"
+                textValue="Booked Tours"
               >
-                Settings
+                Booked Tours
               </DropdownItem>
               <DropdownItem
                 onClick={logout}
