@@ -12,7 +12,7 @@ export async function TourCards({ params }: IProps) {
     page: "1",
     limit: "6",
     fields:
-      "name,ratingsAverage,ratingQuantity,startLocation,priceDiscount,price",
+      "name,duration,ratingsAverage,ratingQuantity,startLocation,priceDiscount,price",
   };
 
   if (params?.name) {
