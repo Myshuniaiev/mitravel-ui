@@ -37,27 +37,34 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const { token } = parseCookies();
 
+    // If there's a token, attempt to fetch the user
     if (token && !user) {
       getMe(token);
+    } else {
+      setLoading(false);
     }
-
-    setLoading(false);
   }, [user]);
 
   const getMe = async (token: string) => {
-    const res = await request<IUser>({
-      url: "users/me",
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    try {
+      const res = await request<IUser>({
+        url: "users/me",
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    if (res.status === "success") {
-      setUser(res.data?.data);
-    } else {
-      alert(res.message || "Login failed");
+      if (res.status === "success") {
+        setUser(res.data?.data);
+      } else {
+        console.error(res.message || "Fetching user failed");
+      }
+    } catch (error) {
+      console.error("Error fetching user:", error);
+    } finally {
+      setLoading(false); // Ensure loading is turned off after attempt
     }
   };
 
@@ -144,7 +151,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     <AuthContext.Provider
       value={{ user, isAuthenticated, updateMe, login, signup, logout }}
     >
-      {children}
+      {loading ? <div>Loading...</div> : children}
     </AuthContext.Provider>
   );
 };
