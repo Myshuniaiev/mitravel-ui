@@ -1,6 +1,6 @@
 import { Greetings } from "@/components/greetings";
-import { TourCards } from "@/components/tours/Cards";
-import SearchBar from "@/components/tours/Search";
+import { TourCards } from "@/app/tours/components/Cards";
+import SearchBar from "@/app/tours/components/Search";
 import { SearchParams } from "@/types";
 
 export default async function Dashboard(props: {

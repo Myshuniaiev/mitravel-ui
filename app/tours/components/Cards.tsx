@@ -1,7 +1,7 @@
 import { request } from "@/services/api";
 import { ITour, SearchParams } from "@/types";
 import { TourCard } from "./Card";
-import { Pagination } from "../pagination";
+import { Pagination } from "../../../components/pagination";
 
 interface IProps {
   params: SearchParams | undefined;
@@ -12,7 +12,7 @@ export async function TourCards({ params }: IProps) {
     page: "1",
     limit: "6",
     fields:
-      "name,duration,ratingsAverage,ratingQuantity,startLocation,priceDiscount,price",
+      "name,duration,ratingsAverage,ratingQuantity,startLocation,priceDiscount,price,imageCover",
   };
 
   if (params?.name) {

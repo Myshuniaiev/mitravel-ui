@@ -23,7 +23,8 @@ export default async function Tour({ params }: IProps) {
         height={400}
         className="object-cover mt-4"
         alt="Tour Image"
-        src={"https://nextui.org/images/hero-card-complete.jpeg"}
+        src={res.data.imageCover}
+        isBlurred
       />
       <div className="flex flex-row gap-20">
         <div className="flex flex-col w-full">
