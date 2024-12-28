@@ -9,7 +9,7 @@ import { IUser } from "@/types";
 interface AuthContextType {
   user: IUser | undefined;
   isAuthenticated: boolean;
-  updateMe: (name: string, email: string) => Promise<void>;
+  updateMe: (data: FormData) => Promise<void>;
   login: (name: string, email: string, password: string) => Promise<void>;
   signup: (
     name: string,
@@ -29,19 +29,30 @@ export const AuthContext = createContext<AuthContextType>({
   logout: () => {},
 });
 
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
+interface AuthProviderProps {
+  children: ReactNode;
+}
+
+export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<IUser | undefined>(undefined);
   const [loading, setLoading] = useState<boolean>(true);
   const router = useRouter();
 
   useEffect(() => {
     const { token } = parseCookies();
-
     if (token && !user) {
-      getMe(token);
+      (async () => {
+        try {
+          await getMe(token);
+        } catch (error) {
+          console.error("Error fetching user:", error);
+        } finally {
+          setLoading(false);
+        }
+      })();
+    } else {
+      setLoading(false);
     }
-
-    setLoading(false);
   }, [user]);
 
   const getMe = async (token: string) => {
@@ -54,55 +65,68 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       },
     });
 
-    if (res.status === "success") {
-      setUser(res.data?.data);
+    if (res.status === "success" && res.data?.data) {
+      setUser(res.data.data);
     } else {
-      alert(res.message || "Login failed");
+      console.error(res.message || "Fetching user failed");
     }
   };
 
-  const updateMe = async (name: string, email: string) => {
+  const updateMe = async (data: FormData) => {
     setLoading(true);
-
     const { token } = parseCookies();
 
-    const res = await request<IUser>({
-      url: "users/updateMe",
-      method: "PATCH",
-      body: JSON.stringify({ name, email }),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    try {
+      const res = await request<IUser>({
+        url: "users/updateMe",
+        method: "PATCH",
+        body: data,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    setLoading(false);
+      if (res.status === "success" && res.data?.data) {
+        console.log("res.data?.data: ", res.data?.data);
+        setUser(res.data.data);
+      } else {
+        console.error(res.message || "Updating user failed");
+      }
+    } catch (error) {
+      console.error("Error updating user:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const login = async (name: string, email: string, password: string) => {
     setLoading(true);
 
-    const res = await request<IUser>({
-      url: "users/login",
-      method: "POST",
-      body: JSON.stringify({ name, email, password }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (res.status === "success" && res.token) {
-      setCookie(null, "token", res.token, {
-        maxAge: 30 * 24 * 60 * 60,
-        path: "/",
+    try {
+      const res = await request<IUser>({
+        url: "users/login",
+        method: "POST",
+        body: JSON.stringify({ name, email, password }),
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
-      setUser(res.data?.data);
-      router.push("/");
-    } else {
-      alert(res.message || "Login failed");
-    }
 
-    setLoading(false);
+      if (res.status === "success" && res.token) {
+        setCookie(null, "token", res.token, {
+          maxAge: 30 * 24 * 60 * 60,
+          path: "/",
+        });
+        setUser(res.data?.data);
+        router.push("/");
+      } else {
+        alert(res.message || "Login failed");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const signup = async (
@@ -111,24 +135,32 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     password: string,
     passwordConfirm: string
   ) => {
-    const res = await request<IUser>({
-      url: "users/signup",
-      method: "POST",
-      body: JSON.stringify({ name, email, password, passwordConfirm }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    setLoading(true);
 
-    if (res.status === "success" && res.token) {
-      setCookie(null, "token", res.token, {
-        maxAge: 30 * 24 * 60 * 60,
-        path: "/",
+    try {
+      const res = await request<IUser>({
+        url: "users/signup",
+        method: "POST",
+        body: JSON.stringify({ name, email, password, passwordConfirm }),
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
-      setUser(res.data?.data);
-      router.push("/");
-    } else {
-      alert(res.message || "Login failed");
+
+      if (res.status === "success" && res.token) {
+        setCookie(null, "token", res.token, {
+          maxAge: 30 * 24 * 60 * 60,
+          path: "/",
+        });
+        setUser(res.data?.data);
+        router.push("/");
+      } else {
+        alert(res.message || "Signup failed");
+      }
+    } catch (error) {
+      console.error("Signup error:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -138,13 +170,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     router.push("/login");
   };
 
-  const isAuthenticated = !!user;
-
   return (
     <AuthContext.Provider
-      value={{ user, isAuthenticated, updateMe, login, signup, logout }}
+      value={{
+        user,
+        isAuthenticated: Boolean(user),
+        updateMe,
+        login,
+        signup,
+        logout,
+      }}
     >
-      {children}
+      {loading ? <div>Loading...</div> : children}
     </AuthContext.Provider>
   );
 };
