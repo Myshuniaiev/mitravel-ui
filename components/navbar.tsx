@@ -51,7 +51,7 @@ export const Navbar = () => {
                 className="transition-transform"
                 color="secondary"
                 name={user.name}
-                src={user?.photoUrl}
+                src={user?.photo}
                 size="sm"
               />
             </DropdownTrigger>

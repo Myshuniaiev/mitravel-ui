@@ -23,13 +23,13 @@ export default function ProfilePage() {
   const [name, setName] = useState<string>(user?.name || "");
   const [email, setEmail] = useState<string>(user?.email || "");
   const [file, setFile] = useState<File | null>(null);
-  const [preview, setPreview] = useState<string>(user?.photoUrl || "");
+  const [preview, setPreview] = useState<string>(user?.photo || "");
 
   useEffect(() => {
     setName(user?.name || "");
     setEmail(user?.email || "");
-    setPreview(user?.photoUrl || "");
-  }, [user?.name, user?.email, user?.photoUrl]);
+    setPreview(user?.photo || "");
+  }, [user?.name, user?.email, user?.photo]);
 
   const handleChangeTab = (value: string | number) => {
     const params = new URLSearchParams(searchParams);
@@ -59,13 +59,10 @@ export default function ProfilePage() {
     formData.append("name", name);
     formData.append("email", email);
 
-    // If the user selected a new file, append it
     if (file) {
       formData.append("photo", file);
     } else if (!preview) {
-      // If preview is empty => user removed the photo
-      // (e.g. the backend might interpret an empty "photoName" to remove the photo)
-      formData.append("photoName", "");
+      formData.append("photo", "");
     }
 
     await updateMe(formData);
@@ -74,7 +71,7 @@ export default function ProfilePage() {
   return (
     <div className="flex w-full flex-col mt-4 p-2 gap-4">
       <div className="flex gap-4">
-        <Avatar name={user?.name} src={user?.photoUrl} size="lg" />
+        <Avatar name={user?.name} src={user?.photo} size="lg" />
         <div className="flex flex-col">
           <span className="text-xl font-bold">{name}</span>
           <span className="text-sm text-inherit">{email}</span>
