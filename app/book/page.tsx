@@ -3,6 +3,8 @@ import { title } from "@/components/primitives";
 import { Card } from "@nextui-org/card";
 import { Divider } from "@nextui-org/divider";
 import { Image } from "@nextui-org/image";
+import { Input } from "@nextui-org/input";
+import { Radio, RadioGroup } from "@nextui-org/radio";
 
 export default async function BookingPage() {
   return (
@@ -35,28 +37,13 @@ export default async function BookingPage() {
               </div>
             </div>
             <Divider orientation="horizontal" className="mb-4" />
-            <div className="mb-4">
-              <h3 className="font-semibold text-lg">Choose how to pay</h3>
-              <div className="mt-4">
-                <label className="flex items-center mb-4">
-                  <input
-                    type="radio"
-                    name="payment"
-                    defaultChecked
-                    className="mr-2"
-                  />
-                  Pay $79.80 CAD now
-                </label>
-                <label className="flex">
-                  <input name="payment" type="radio" className="mr-2" />
-                  Pay in 4 payments
-                  <span className="ml-2 text-sm text-gray-500">
-                    4 payments of $19.95 every 2 weeks for 6 weeks.
-                    Interest-free.
-                  </span>
-                </label>
-              </div>
-            </div>
+            <RadioGroup label="Choose how to pay">
+              <Radio value="buenos-aires">Pay $79.80 CAD now</Radio>
+              <Radio value="sydney">
+                Pay in 4 payments (4 payments of $19.95 every 2 weeks for 6
+                weeks. Interest-free.)
+              </Radio>
+            </RadioGroup>
           </Card>
         </div>
         <div className="flex flex-col">
@@ -101,48 +88,29 @@ export default async function BookingPage() {
               <h3 className="font-semibold text-lg mb-4">
                 Credit Card Details
               </h3>
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  placeholder="Joe Doe"
-                  className="w-full border rounded-lg p-2"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Card Number
-                </label>
-                <input
-                  type="text"
-                  placeholder="1234 5678 9012 3456"
-                  className="w-full border rounded-lg p-2"
-                />
-              </div>
+              <Input
+                label="Full Name"
+                id="full-name"
+                type="text"
+                placeholder="Joe Doe"
+              />
+              <Input
+                label="Card Number"
+                id="card-number"
+                type="text"
+                placeholder="1234 5678 9012 3456"
+              />
               <div className="flex gap-4">
-                <div className="flex-1">
-                  <label className="block text-sm font-medium mb-1">
-                    Expiration Date
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="MM/YY"
-                    className="w-full border rounded-lg p-2"
-                  />
-                </div>
-                <div className="flex-1">
-                  <label className="block text-sm font-medium mb-1">CVV</label>
-                  <input
-                    type="text"
-                    placeholder="123"
-                    className="w-full border rounded-lg p-2"
-                  />
-                </div>
+                <Input
+                  label="Expiration Date"
+                  id="expiration-date"
+                  type="text"
+                  placeholder="MM/YY"
+                />
+                <Input label="CVV" id="cvv" type="text" placeholder="123" />
               </div>
             </div>
-            <BookButton title={"Confirm and Pay"} link={"/"}/>
+            <BookButton title={"Confirm and Pay"} link={"/"} />
           </Card>
         </div>
       </div>
