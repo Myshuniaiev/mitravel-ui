@@ -88,33 +88,26 @@ export default async function BookingPage() {
               <h3 className="font-semibold text-lg mb-4">
                 Credit Card Details
               </h3>
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Full Name
-                </label>
-                <Input id="full-name" type="text" placeholder="Joe Doe" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">
-                  Card Number
-                </label>
-                <Input
-                  id="card-number"
-                  type="text"
-                  placeholder="1234 5678 9012 3456"
-                />
-              </div>
+              <Input
+                label="Full Name"
+                id="full-name"
+                type="text"
+                placeholder="Joe Doe"
+              />
+              <Input
+                label="Card Number"
+                id="card-number"
+                type="text"
+                placeholder="1234 5678 9012 3456"
+              />
               <div className="flex gap-4">
-                <div className="flex-1">
-                  <label className="block text-sm font-medium mb-1">
-                    Expiration Date
-                  </label>
-                  <Input id="expiration-date" type="text" placeholder="MM/YY" />
-                </div>
-                <div className="flex-1">
-                  <label className="block text-sm font-medium mb-1">CVV</label>
-                  <Input id="cvv" type="text" placeholder="123" />
-                </div>
+                <Input
+                  label="Expiration Date"
+                  id="expiration-date"
+                  type="text"
+                  placeholder="MM/YY"
+                />
+                <Input label="CVV" id="cvv" type="text" placeholder="123" />
               </div>
             </div>
             <BookButton title={"Confirm and Pay"} link={"/"} />
