@@ -49,7 +49,7 @@ export const ThemeSwitch: FC<ThemeSwitchProps> = ({
       })}
     >
       <VisuallyHidden>
-        <input {...getInputProps()} />
+        <input id="theme-switch" {...getInputProps()} />
       </VisuallyHidden>
       <div
         {...getWrapperProps()}

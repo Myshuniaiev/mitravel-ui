@@ -36,6 +36,7 @@ export default function Login() {
         <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
           <div className="flex flex-col">
             <Input
+              id="name"
               classNames={{
                 base: "-mb-[2px]",
                 inputWrapper:
@@ -50,6 +51,7 @@ export default function Login() {
               onValueChange={setName}
             />
             <Input
+              id="email"
               classNames={{
                 base: "-mb-[2px]",
                 inputWrapper:
@@ -64,6 +66,7 @@ export default function Login() {
               onValueChange={setEmail}
             />
             <Input
+              id="password"
               classNames={{
                 inputWrapper: "rounded-t-none",
               }}

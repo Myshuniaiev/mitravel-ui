@@ -44,6 +44,7 @@ export function PublicProfileTab({
               Upload
             </Button>
             <input
+              id="file"
               ref={fileInputRef}
               onChange={handleFileChange}
               type="file"

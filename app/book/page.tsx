@@ -40,6 +40,7 @@ export default async function BookingPage() {
               <div className="mt-4">
                 <label className="flex items-center mb-4">
                   <input
+                    id="payment-now"
                     type="radio"
                     name="payment"
                     defaultChecked
@@ -48,7 +49,12 @@ export default async function BookingPage() {
                   Pay $79.80 CAD now
                 </label>
                 <label className="flex">
-                  <input name="payment" type="radio" className="mr-2" />
+                  <input
+                    id="payment"
+                    name="payment"
+                    type="radio"
+                    className="mr-2"
+                  />
                   Pay in 4 payments
                   <span className="ml-2 text-sm text-gray-500">
                     4 payments of $19.95 every 2 weeks for 6 weeks.
@@ -106,6 +112,7 @@ export default async function BookingPage() {
                   Full Name
                 </label>
                 <input
+                  id="full-name"
                   type="text"
                   placeholder="Joe Doe"
                   className="w-full border rounded-lg p-2"
@@ -116,6 +123,7 @@ export default async function BookingPage() {
                   Card Number
                 </label>
                 <input
+                  id="card-number"
                   type="text"
                   placeholder="1234 5678 9012 3456"
                   className="w-full border rounded-lg p-2"
@@ -127,6 +135,7 @@ export default async function BookingPage() {
                     Expiration Date
                   </label>
                   <input
+                    id="expiration-date"
                     type="text"
                     placeholder="MM/YY"
                     className="w-full border rounded-lg p-2"
@@ -135,6 +144,7 @@ export default async function BookingPage() {
                 <div className="flex-1">
                   <label className="block text-sm font-medium mb-1">CVV</label>
                   <input
+                    id="cvv"
                     type="text"
                     placeholder="123"
                     className="w-full border rounded-lg p-2"
@@ -142,7 +152,7 @@ export default async function BookingPage() {
                 </div>
               </div>
             </div>
-            <BookButton title={"Confirm and Pay"} link={"/"}/>
+            <BookButton title={"Confirm and Pay"} link={"/"} />
           </Card>
         </div>
       </div>
