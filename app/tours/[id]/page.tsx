@@ -1,5 +1,4 @@
-import { ITour, SearchParams } from "@/types";
-import { Image } from "@nextui-org/image";
+import { ITour } from "@/types";
 import { Divider } from "@nextui-org/divider";
 import { FlagIcon, MapPinIcon, UsersGroup } from "@/components/icons";
 import { ListItem } from "@/components/list";
@@ -18,14 +17,13 @@ export default async function Tour({ params }: IProps) {
 
   return (
     <div className="w-full px-8">
-      <Image
+      <img
         key={res.data.imageCover}
         width={1800}
         height={400}
         className="object-cover mt-4"
         alt="Tour Image"
         src={res.data.imageCover}
-        isBlurred
       />
       <div className="flex flex-row gap-20">
         <div className="flex flex-col w-full">

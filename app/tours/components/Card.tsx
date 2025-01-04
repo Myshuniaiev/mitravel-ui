@@ -2,8 +2,6 @@
 
 import { ITour } from "@/types";
 import { Card, CardBody, CardFooter } from "@nextui-org/card";
-import { Image } from "@nextui-org/image";
-
 import { useRouter } from "next/navigation";
 
 export function TourCard(tour: ITour) {
@@ -19,7 +17,7 @@ export function TourCard(tour: ITour) {
     >
       <CardBody className="overflow-hidden rounded-t-lg p-0 w-full h-[280px] relative">
         {tour.imageCover ? (
-          <Image
+          <img
             key={tour.imageCover}
             src={tour.imageCover}
             alt={tour.name || "Tour Image"}
