@@ -24,7 +24,7 @@ export function TourCard(tour: ITour) {
             src={tour.imageCover}
             alt={tour.name || "Tour Image"}
             className="object-cover"
-            sizes="(max-width: 640px) 100vw, 33vw" // Adjust based on layout needs
+            sizes="(max-width: 640px) 100vw, 33vw"
           />
         ) : (
           <div className="flex items-center justify-center w-full h-full bg-gradient-to-t from-black/30 to-transparent">
