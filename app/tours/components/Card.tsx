@@ -20,6 +20,7 @@ export function TourCard(tour: ITour) {
       <CardBody className="overflow-hidden rounded-t-lg p-0 w-full h-[280px] relative">
         {tour.imageCover ? (
           <Image
+            key={tour.imageCover}
             src={tour.imageCover}
             alt={tour.name || "Tour Image"}
             className="object-cover"
