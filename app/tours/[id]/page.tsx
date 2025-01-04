@@ -19,10 +19,8 @@ export default async function Tour({ params }: IProps) {
     <div className="w-full px-8">
       <img
         key={res.data.imageCover}
-        width={1800}
-        height={400}
-        className="object-cover mt-4"
-        alt="Tour Image"
+        className="w-[1800px] h-[400px] object-cover mt-4"
+        alt="tour-image"
         src={res.data.imageCover}
       />
       <div className="flex flex-row gap-20">
