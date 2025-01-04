@@ -19,6 +19,7 @@ export default async function Tour({ params }: IProps) {
   return (
     <div className="w-full px-8">
       <Image
+        key={res.data.imageCover}
         width={1800}
         height={400}
         className="object-cover mt-4"
